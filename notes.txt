@@ -1,0 +1,186 @@
+v-cloak = can use this directive to show when a site is loaded, when variables are loaded this value will be removed from the element.
+v-html = this allows you to dangerously set html in the dom use carefully. cross site scripting
+event modifiers event.prevent this is one.
+@keyup.enter will trigger when you press the enter button
+@click.ctrl will only trigger event when you have shift held in.
+v-model.number will parse a string to a number
+v-model.lazy.trim = will remove whitespace from a string / click off and will get the value form a text box
+
+
+v-model
+============================================================
+Binds data value to form element
+
+computed
+============================================================
+It always calculates somethings.
+Math to concatenating strings.
+Propertries which are calculated in some sort of manner.
+Methods are more expensive than computed properties.
+When a data value is changed, the dom will be redrawn and all methods will be called again.
+computed cant have parenthesis in the template.
+Vue caches values of computed props.
+If a function is not bound to an event use a computed.
+computed will only run if one of its properties have been changed.
+This is better for performance
+Methods should only run with an event
+Must always return something
+
+
+Watchers
+============================================================
+Watchers data for changes. When data changes you can run a functions.
+Not used very often.
+It is like the component did update method.
+Dont stress too much about using them.
+
+vue fragments
+===========================================================
+instead of fragment you just change everything to template.
+<template></template>
+
+
+v-show
+============================================================
+v-show accepts a boolean and then shows or hides the content.
+Vue applies a css class as opposed to removing it from the dom.
+doesnt work on the vue fragment
+Its cheap when after you have loaded it.
+if Element is toggled frequently then you use the v show.
+
+
+v-for
+===========================================================
+people = [{'name': 'cameron', age: 20},{'name': 'justine', age: 20},]
+
+<div v-for="person in people">
+	<div v-for="(value, key, index) in person">
+		{{ key }}: {{value}} - {{index}}
+	</div>
+</div>
+Loop inside a loop not very happy about this but it flattens an array.
+
+
+vue lifecycles
+===========================================================
+
+beforeCreate -  vue instance hasnt been fully created. Cant access data and methods
+created - we can access data and methods in vue, not mounted to any template and wouldnt render anything.
+beforeMount - before a template is added to the dom. the template is found and is about to be loaded into the dom
+Mounted - is when teh template is in the dom
+beforeUpdate - this happens when data is updated but not applied to the template.
+updated - when data is updated and you want to trigger something
+
+beforeUpdated and Updated is mostly used for debugging.
+unmount destroys the instance of vue.
+
+
+difference between mounted and created: Mounted is only triggered when the template is compiled and inserted into the doc.
+if you only need the data you can use the created.
+if you need the template you need to get the mounted.
+
+
+Virtual Dom
+===========================================================
+it is an object.
+Will insert stuff into the real dom
+
+
+Vue reactivity
+==========================================================
+program reacts to changes
+like excel calculates results on the fly.
+when data changes vue updates the dom. Vue is using proxies under the hood.
+const data = {
+  name: 'Luis'
+}
+
+const observedData = new Proxy(data, {
+  set(target, key, value){
+    document.querySelector('#name').innerText = value
+    target[key] = value
+  }
+})
+
+observedData.name = "Cameron"
+
+console.log(observedData.name)
+
+https://css-tricks.com/an-intro-to-javascript-proxy/
+
+This is very cool.
+
+
+Vue also has a render functions its converts and object to something we can see in the build
+
+
+
+Components
+==========================================================
+
+use kebab case. ('blog-post')
+namespace components
+components cannot be mounted.
+They are pieces for you vue application.
+
+
+Slots
+=========================================================
+Used for lib development.
+They only work on template tags.
+The work like passing in children to react.
+
+
+Transitions
+========================================================
+There is a component for vue transitions.
+mode="out-in"
+animates the element going out first then the in element
+
+
+Getters
+=======================================================
+Access state property from the store.
+Its optional
+this.$store.state.authModalShow is not best practice
+They are computed properties for the store.
+Only updates when state changes. Good to use.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
