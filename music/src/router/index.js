@@ -3,6 +3,7 @@ import store from "@/store";
 import Home from "@/views/Home";
 import About from "@/views/About";
 import Manage from "@/views/Manage";
+import Song from "@/views/Song";
 
 const routes = [
   {
@@ -28,6 +29,11 @@ const routes = [
       console.log("Gaurd works");
       next();
     },
+  },
+  {
+    name: "song",
+    path: "/song/:id",
+    component: Song,
   },
   {
     path: "/:catchAll(.*)*",
