@@ -79,7 +79,9 @@ export default {
   computed: {
     // Getters always go in computed
     // Always prefix getters with get
-    ...mapState(["authModalShow"]),
+    ...mapState({
+      authModalShow: state => state.auth.authModalShow,
+    }),
     // Aliasing names
     // ...mapState({
     //   modal: 'authModalShow',

@@ -11,7 +11,10 @@
         class="z-50 h-24 w-24 text-3xl bg-white text-black rounded-full focus:outline-none"
         @click.prevent="newSong(song)"
       >
-        <i class="fas" :class="{ 'fa-play': !playing, 'fa-pause': playing }"></i>
+        <i
+          class="fas"
+          :class="{ 'fa-play': !playing, 'fa-pause': playing }"
+        ></i>
       </button>
       <div class="z-50 text-left ml-8">
         <!-- Song Info -->
@@ -36,7 +39,11 @@
         >
           {{ commentAlertMessage }}
         </div>
-        <vee-form v-if="userLoggedIn" :validation-schema="schema" @submit="postComment">
+        <vee-form
+          v-if="userLoggedIn"
+          :validation-schema="schema"
+          @submit="postComment"
+        >
           <vee-field
             as="textarea"
             name="comment"
@@ -91,19 +98,21 @@ export default {
     return {
       song: {},
       schema: {
-        comment: "required|min:3",
+        comment: "required|min:3"
       },
       commentInSubmission: false,
       commentShowAlert: false,
       commentAlertVariant: "bg-blue-500",
       commentAlertMessage: "Please wait your comment is being submitted",
       comments: [],
-      sort: "1",
+      sort: "1"
     };
   },
   computed: {
     ...mapGetters(["playing"]),
-    ...mapState(["userLoggedIn"]),
+    ...mapState({
+      userLoggedIn: (state) => state.auth.userLoggedIn
+    }),
     sortedComments() {
       // the slice will return a new array man shit
       return this.comments.slice().sort((a, b) => {
@@ -111,7 +120,7 @@ export default {
           ? new Date(b.datePosted) - new Date(a.datePosted)
           : new Date(a.datePosted) - new Date(b.datePosted);
       });
-    },
+    }
   },
   watch: {
     sort(newVal) {
@@ -121,10 +130,10 @@ export default {
 
       this.$router.push({
         query: {
-          sort: newVal,
-        },
+          sort: newVal
+        }
       });
-    },
+    }
   },
   async created() {
     const docSnapShot = await songsCollection.doc(this.$route.params.id).get();
@@ -154,14 +163,14 @@ export default {
         datePosted: new Date().toString(),
         sid: this.$route.params.id,
         name: "Cameron",
-        uid: auth.currentUser.uid,
+        uid: auth.currentUser.uid
       };
 
       await commentsCollection.add(comment);
 
       this.song.commentCount += 1;
       await songsCollection.doc(this.$route.params.id).update({
-        commentCount: this.song.commentCount,
+        commentCount: this.song.commentCount
       });
 
       this.getComments();
@@ -173,17 +182,19 @@ export default {
       resetForm();
     },
     async getComments() {
-      let snapShots = await commentsCollection.where("sid", "==", this.$route.params.id).get();
+      let snapShots = await commentsCollection
+        .where("sid", "==", this.$route.params.id)
+        .get();
       this.comments = [];
 
       snapShots.forEach((doc) => {
         this.comments.push({
           docID: doc.id,
-          ...doc.data(),
+          ...doc.data()
         });
       });
-    },
-  },
+    }
+  }
 };
 </script>
 <style lang=""></style>
