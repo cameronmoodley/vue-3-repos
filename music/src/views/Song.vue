@@ -94,6 +94,23 @@ import { songsCollection, auth, commentsCollection } from "@/includes/firebase";
 import { mapState, mapActions, mapGetters } from "vuex";
 export default {
   name: "AppSong",
+  // When you use the beforeRouteEnter hook, you can access this
+  async beforeRouteEnter(to, from, next) {
+    const docSnapShot = await songsCollection.doc(to.params.id).get();
+
+    next((vm) => {
+      // vm will be considered as this keyword
+      // this is how you hack it
+      if (!docSnapShot.exists) {
+        vm.$router.push({ name: "home" });
+        return;
+      }
+      const { sort } = vm.$route.query;
+      vm.sort = sort === "1" || sort === "2" ? sort : "1";
+      vm.song = docSnapShot.data();
+      vm.getComments();
+    });
+  },
   data: function () {
     return {
       song: {},
@@ -135,21 +152,7 @@ export default {
       });
     }
   },
-  async created() {
-    const docSnapShot = await songsCollection.doc(this.$route.params.id).get();
 
-    if (!docSnapShot.exists) {
-      this.$router.push({ name: "home" });
-      return;
-    }
-
-    const { sort } = this.$route.query;
-
-    this.sort = sort === "1" || sort === "2" ? sort : "1";
-
-    this.song = docSnapShot.data();
-    this.getComments();
-  },
   methods: {
     ...mapActions(["newSong"]),
     async postComment(values, { resetForm }) {

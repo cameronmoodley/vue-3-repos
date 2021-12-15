@@ -1,11 +1,13 @@
 import { auth, userCollection } from "@/includes/firebase";
 
 export default {
+  // namespaced: true,
+  // need to pass in a name when you call the module
   state: {
     authModalShow: false,
     userLoggedIn: false,
   },
-  getters: {
+  mutations: {
     toggleAuthModal: (state) => {
       state.authModalShow = !state.authModalShow;
     },
@@ -13,7 +15,6 @@ export default {
       state.userLoggedIn = !state.userLoggedIn;
     },
   },
-  mutations: {},
   actions: {
     async register({ commit }, { email, password, name, age, country, userType }) {
       const userCred = await auth.createUserWithEmailAndPassword(email, password);
