@@ -2,6 +2,7 @@ import lodash from "lodash";
 
 export default {
   install(app) {
+    console.log("console.log(app);", app);
     // 1) Path for components relative to current file
     // 2) Lets webpack know to search through sub directories.
     // 3) Regex to find all vue files
@@ -18,6 +19,7 @@ export default {
       const componentName = lodash.upperFirst(
         lodash.camelCase(fileName.replace(/^\.\//, "").replace(/\.\w+$/, ""))
       );
+
       app.component(`Base${componentName}`, componentConfig.default || componentConfig);
     });
   },
