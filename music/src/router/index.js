@@ -3,8 +3,12 @@ import store from "@/store";
 
 const Home = () => import("@/views/Home");
 const About = () => import("@/views/About");
-const Manage = () => import("@/views/Manage");
-const Song = () => import("@/views/Song");
+
+// These asre named chunks.
+// There is an addition request.
+
+const Manage = () => import(/* webpackChunkName: "groupedChunk" */ "@/views/Manage");
+const Song = () => import(/* webpackChunkName: "groupedChunk" */ "@/views/Song");
 
 const routes = [
   {

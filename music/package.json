@@ -20,6 +20,7 @@
     "firebase": "8",
     "howler": "^2.2.3",
     "lodash": "^4.17.21",
+    "nprogress": "^0.2.0",
     "postcss": "^7",
     "prettier": "^2.5.0",
     "tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.2.17",

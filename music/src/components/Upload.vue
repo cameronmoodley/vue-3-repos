@@ -22,7 +22,11 @@
       <input type="file" multiple @change="upload" />
       <hr class="my-6" />
       <!-- Progess Bars -->
-      <div v-for="singleUpload in uploads" :key="singleUpload.name" class="mb-4">
+      <div
+        v-for="singleUpload in uploads"
+        :key="singleUpload.name"
+        class="mb-4"
+      >
         <!-- File Name -->
         <div class="font-bold text-sm" :class="singleUpload.textClass">
           <i :class="singleUpload.icon"></i> {{ singleUpload.name }}
@@ -47,13 +51,13 @@ export default {
   props: {
     addSong: {
       type: Function,
-      required: true,
-    },
+      required: true
+    }
   },
   data() {
     return {
       isDragover: false,
-      uploads: [],
+      uploads: []
     };
   },
   beforeUnmount() {
@@ -69,7 +73,9 @@ export default {
 
       // chrome will not show the file if you log the event out.
       // You need to access the property.
-      const files = evt.dataTransfer ? [...evt.dataTransfer.files] : [...evt.target.files];
+      const files = evt.dataTransfer
+        ? [...evt.dataTransfer.files]
+        : [...evt.target.files];
       files.forEach((file) => {
         if (file.type !== "audio/mpeg") {
           return;
@@ -92,20 +98,20 @@ export default {
             name: file.name,
             variant: "bg-blue-400",
             icon: "fas fa-spinner fa-spin",
-            textClass: "",
+            textClass: ""
           }) - 1;
 
         task.on(
           "state_changed",
           (snapshot) => {
-            const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+            const progress =
+              (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
             this.uploads[uploadIndex].currentProgress = progress;
           },
-          (error) => {
+          () => {
             this.uploads[uploadIndex].variant = "bg-red-500";
             this.uploads[uploadIndex].icon = "fas fa-times";
             this.uploads[uploadIndex].textClass = "text-red-400";
-            console.log(error);
           },
           async () => {
             // this is the success function
@@ -115,7 +121,7 @@ export default {
               originName: task.snapshot.ref.name,
               modifiedName: task.snapshot.ref.name,
               genre: "",
-              commentCount: 0,
+              commentCount: 0
             };
 
             song.url = await task.snapshot.ref.getDownloadURL();
@@ -131,8 +137,8 @@ export default {
           }
         );
       });
-    },
-  },
+    }
+  }
 };
 </script>
 <style lang=""></style>

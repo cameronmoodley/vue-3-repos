@@ -46,7 +46,6 @@ export default {
       commit("toggleAuth");
     },
     async signout({ commit }, { router, route }) {
-      console.log("It works");
       await auth.signOut();
       commit("toggleAuth");
 

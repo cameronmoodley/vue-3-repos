@@ -51,15 +51,12 @@ export default {
 
     async toggleAudio({ state }) {
       if (!state.sound.playing) {
-        console.log("returned");
         return;
       }
 
       if (state.sound.playing()) {
-        console.log("paused");
         state.sound.pause();
       } else {
-        console.log("playing");
         state.sound.play();
       }
     },
