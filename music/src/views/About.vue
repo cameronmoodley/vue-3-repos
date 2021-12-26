@@ -5,13 +5,13 @@
 </template>
 
 <script>
-import dummyModule from "@/store/modules/dummy";
+// import dummyModule from "@/store/modules/dummy";
 
 export default {
-  name: "AppAbout",
-  created() {
-    // mannually registering a module
-    this.$store.registerModule("dummyModule", dummyModule);
-  }
+  name: "AppAbout"
+  // created() {
+  //   // mannually registering a module
+  //   this.$store.registerModule("dummyModule", dummyModule);
+  // }
 };
 </script>

@@ -6,13 +6,13 @@ import VeeValidatePlugin from "@/includes/validation";
 import { auth } from "./includes/firebase";
 import Icon from "./directives/icon";
 import GlobalComponents from "./includes/_globals";
-import ProgressBar from "./includes/progress-bar";
+// import ProgressBar from "./includes/progress-bar";
 import "nprogress/nprogress.css";
 
 import "./assets/tailwind.css";
 import "./assets/main.css";
 
-ProgressBar(router);
+// ProgressBar(router);
 
 let app;
 

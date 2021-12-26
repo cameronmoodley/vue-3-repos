@@ -1,6 +1,7 @@
 <template lang="">
   <li
-    class="flex justify-between items-center p-3 pl-6 cursor-pointer transition duration-300 hover:bg-gray-50"
+    :class="`song-id-${song.docID}`"
+    class="flex justify-between items-center p-3 pl-6 cursor-pointer transition duration-300 hover:bg-gray-50 example snapshot"
   >
     <div>
       <router-link
@@ -28,9 +29,8 @@
 <script>
 export default {
   name: "AppSongItem",
-
   // eslint-disable-next-line vue/require-prop-types
-  props: ["song"],
+  props: ["song"]
 };
 </script>
 <style lang=""></style>
